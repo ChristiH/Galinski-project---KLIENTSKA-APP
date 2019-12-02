@@ -1,4 +1,5 @@
-iimport tkinter as tk
+
+import tkinter as tk
 
 h=720
 w=1280
@@ -62,8 +63,8 @@ def frame2():
     karty_btn=tk.Button(root,text='KARTY',command=karty_def)
     karty_btn.place(width=200,height=25,x=w//2-355,y=530)
 
-    odhlasenie_btn=tk.Button(root,text='ODHLASIT SA',command=odhlas)
-    odhlasenie_btn.place(width=100,height=50,x=w-120,y=h-60)
+    odhlasenie_btn=tk.Button(root,text='ODHLÁSIŤ SA',command=odhlas)
+    odhlasenie_btn.place(width=100,height=50,x=w-120,y=30)
 
 
 
@@ -87,7 +88,7 @@ def frame3():
     trans_list.config(yscrollcommand=scrollbar.set)
     scrollbar.config(command=trans_list.yview)
 
-    spat_btn = tk.Button(root,text='spat',command=spat_def)
+    spat_btn = tk.Button(root,text='SPÄŤ',command=spat_def)
     spat_btn.place(width=200,height=25,x=100,y=60)
 ##    transakcia=suma
 ##    p=transakcia//10
@@ -95,7 +96,6 @@ def frame3():
 ##        can.create_rectangle(700,600,800,600-p*10,fill='green')
 ##    else:
 ##        can.create_rectangle(w-330,h-100,w-230,h-100-20-p,fill='red')
-
 
     
 
@@ -122,30 +122,44 @@ def platobny_prikaz_def():
     prijmy_tf=False
 
 def karty_def():
-    global platobny_prikaz_tf, karty_tf, prijmy_tf, splatdlh_btn, karty_list
+    global platobny_prikaz_tf, karty_tf, prijmy_tf, splatdlh_btn, karty_list, dlh, splatene,suma2_entry,prihlasit_btn, ID_entry, ucty_list,karty_btn,transakcia_btn,platprik_btn,potvrdplatbu_btn,prijmy_btn,splatdlh_btn,prijemca_entry,suma_entry,can
     vymaz_pravu_stranu()
     
     can.create_text(w//2+255,150,text='KARTY',font='Arial 25')
+    
+    suma2_entry = tk.Entry()
+    suma2_entry.pack()
+    suma2_entry.place(width=200,height=25,x=w//2+155,y=h-300)
 
-    splatdlh_btn=tk.Button(root,text='splatit dlh',command=frame2)
-    splatdlh_btn.place(width=200,height=25,x=w//2+155,y=410)
+    dlh=0
+    splatdlh_btn=tk.Button(root,text='SPLATIT DLH',command=splatit)
+    splatdlh_btn.place(width=200,height=25,x=w//2+155,y=h-250)
 
+    
     karty_list = tk.Listbox(root, width=43, height = 8, font='Arial 13',selectmode='SINGLE', xscrollcommand=True)
-    karty_list.insert(1, "KREDITNA KARTA, dlh = 120$")
+    karty_list.insert(1, 'KREDITNA KARTA '+str(dlh))
     karty_list.insert(2, "DEBETNA KARTA")
     karty_list.place(x=w//2+65,y=200)
     
     karty_tf=True
     platobny_prikaz_tf=False
     prijmy_tf=False
+
+def splatit():
+    global dlh, splatene,suma2_entry
+    splatene=suma2_entry.get()
+    print(splatene)
+    
+   
     
 def prijmy_def():
-    global platobny_prikaz_tf, karty_tf, prijmy_tf, prijmy_list
+    global platobny_prikaz_tf, karty_tf, prijmy_tf, prijmy_list,prihlasit_btn, ID_entry, ucty_list,karty_btn,transakcia_btn,platprik_btn,potvrdplatbu_btn,prijmy_btn,splatdlh_btn,prijemca_entry,suma_entry,can
     vymaz_pravu_stranu()
     
     can.create_text(w//2+255,150,text='PRIJMY',font='Arial 25')
-    
-    prijmy_list = tk.Listbox(root, width=43, height = 8, font='Arial 13',selectmode='SINGLE', xscrollcommand=True)
+
+    pocet=18
+    prijmy_list = tk.Listbox(root, width=43, height = pocet, font='Arial 13',selectmode='SINGLE', xscrollcommand=True)
     prijmy_list.insert(1, "420 / SK83 0000 0000 0000 0000 0000")
     prijmy_list.insert(2, "1420 / SK83 0000 0000 0000 0000 0001")
     prijmy_list.insert(3, "4,20 / SK83 0000 0000 0000 0000 0002")
@@ -180,10 +194,8 @@ def odhlas():
     transakcia_btn.destroy()
     platprik_btn.destroy()
     prijmy_btn.destroy()
-##    potvrdplatbu_btn.destroy()
-##    splatdlh_btn.destroy()
-##    prijemca_entry.destroy()
-##    suma_entry.destroy()
+    vymaz_pravu_stranu()
+    vymaz_lavu_stranu()
 
     login()
     
@@ -201,6 +213,7 @@ def vymaz_pravu_stranu():
         frame2()
         splatdlh_btn.destroy()
         karty_list.destroy()
+        suma2_entry.destroy()
         
     elif prijmy_tf:
         can.delete('all')
@@ -230,5 +243,6 @@ karty_tf=False
 platobny_prikaz_tf=False
 prijmy_tf=False
 login()
+
 
 
