@@ -8,8 +8,8 @@ can = tk.Canvas(root,width=w,height=h, bg='#beefff')
 can.pack()
 labelMenuImg=0
 
-users = {'kubo': 'ok', 'mato':'matojefrajer'} ##mena a hesla na prihlasovanie -- neskor by bolo dobre aby sme to dali do nejakej databazy v subore alebo co
-users.update({'' : ''})
+#users = {} ##mena a hesla na prihlasovanie 
+#users.update({'' : ''})
 
 def round_rectangle(x1, y1, x2, y2, radius=50, color='black', **kwargs):
 
